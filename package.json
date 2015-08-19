@@ -1,6 +1,6 @@
 {
   "name": "to-clipboard",
-  "description": "Copy a command to the clipboard. ",
+  "description": "Copy to the clipboard. Cross-platform: windows, linux and darwin (mac).",
   "version": "0.1.0",
   "homepage": "https://github.com/jonschlinkert/to-clipboard",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
@@ -26,5 +26,26 @@
     "mocha": "*",
     "should": "*"
   },
-  "keywords": []
+  "keywords": [
+    "board",
+    "clip",
+    "clip-board",
+    "clipboard",
+    "copy",
+    "darwin",
+    "linux",
+    "mac",
+    "pbcopy",
+    "win",
+    "windows",
+    "xcop"
+  ],
+  "verb": {
+    "related": {
+      "list": [
+        "spawn-commands",
+        "lint-deps"
+      ]
+    }
+  }
 }

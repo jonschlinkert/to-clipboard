@@ -10,17 +10,16 @@
 /* deps:mocha */
 var assert = require('assert');
 var should = require('should');
-var os = require('os');
 var toClipboard = require('./');
-var program = ({win: 'clip', linux: 'xclip', darwin: 'pbcopy'})[os.platform()];
+var program = ({win: 'clip', linux: 'xclip', darwin: 'pbcopy'})[process.platform];
 
 describe('toClipboard', function () {
   it('should format args:', function () {
-    assert.strictEqual(toClipboard.format('foo'), 'printf foo | ' + program);
-    assert.strictEqual(toClipboard.format('<div></div>'), 'printf \'<div></div>\' | ' + program);
-    assert.strictEqual(toClipboard.format('bar baz'), 'printf \'bar baz\' | ' + program);
-    assert.strictEqual(toClipboard.format(['bar', 'baz']), 'printf bar baz | ' + program);
-    assert.strictEqual(toClipboard.format('bar | baz'), 'printf \'bar | baz\' | ' + program);
-    assert.strictEqual(toClipboard.format(['bar', '|', 'baz']), 'printf bar \'|\' baz | ' + program);
+    assert.strictEqual(toClipboard.format('foo'), 'echo foo | ' + program);
+    assert.strictEqual(toClipboard.format('<div></div>'), 'echo \'<div></div>\' | ' + program);
+    assert.strictEqual(toClipboard.format('bar baz'), 'echo \'bar baz\' | ' + program);
+    assert.strictEqual(toClipboard.format(['bar', 'baz']), 'echo bar baz | ' + program);
+    assert.strictEqual(toClipboard.format('bar | baz'), 'echo \'bar | baz\' | ' + program);
+    assert.strictEqual(toClipboard.format(['bar', '|', 'baz']), 'echo bar \'|\' baz | ' + program);
   });
 });

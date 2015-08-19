@@ -7,34 +7,31 @@
 
 'use strict';
 
-var child = require('child_process');
+var cp = require('child_process');
 var escape = require('shell-escape');
-var os = require('os');
-var program = ({win: 'clip', linux: 'xclip', darwin: 'pbcopy'})[os.platform()];
 
 function toClipboard(args, cb) {
-  if (typeof program === 'undefined') {
-    return cb(error(os.platform()));
-  }
-  child.exec(toClipboard.format(args), cb);
+  cp.exec(format(args), cb);
 }
 
 toClipboard.sync = function toClipboardSync(args) {
-  if (typeof program === 'undefined') {
-    throw new Error(error(os.platform()));
+  return cp.execSync(format(args));
+};
+
+function program() {
+  switch (process.platform) {
+    case 'darwin':
+      return 'pbcopy';
+    case 'win32':
+      return 'clip';
+    case 'linux':
+      return 'xclip -selection clipboard';
   }
-  return child.execSync(toClipboard.format(args));
-};
+}
 
-toClipboard.format = function format() {
-  var args = escape([].concat.apply([], arguments));
-  var cmd = 'echo ' + args + ' | ' + program;
-  return cmd;
-};
-
-function error(platform) {
-  var msg = '"' + platform + '" platform not supported by to-clipboard. Request support at https://github.com/jonschlinkert/to-clipboard/issues';
-  return new Error(wrap(msg));
+function format() {
+  var args = [].concat.apply([], arguments);
+  return 'echo ' + escape(args) + ' | ' + program();
 }
 
 /**
@@ -42,3 +39,9 @@ function error(platform) {
  */
 
 module.exports = toClipboard;
+
+/**
+ * Expose `toClipboard.format`
+ */
+
+module.exports.format = format;

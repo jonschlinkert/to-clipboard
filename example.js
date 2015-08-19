@@ -5,10 +5,10 @@ var str = [
 '<html lang="en">',
 '  <head>',
 '    <meta charset="UTF-8">',
-'    <title>Document</title>',
+'    <title>a | b | c</title>',
 '  </head>',
 '  <body class="foo">',
-'    ',
+'    {% body %}',
 '  </body>',
 '</html>',
 ].join('\n');
@@ -16,3 +16,5 @@ var str = [
 toClipboard(str, function (err) {
   if (err) return console.log(err);
 });
+
+// toClipboard.sync(str);

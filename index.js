@@ -31,7 +31,7 @@ function program() {
 
 function format() {
   var args = [].concat.apply([], arguments);
-  return 'echo ' + escape(args) + ' | ' + program();
+  return 'echo -n ' + escape(args) + ' | ' + program();
 }
 
 /**

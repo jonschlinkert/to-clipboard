@@ -18,20 +18,20 @@ toClipboard.sync = function toClipboardSync(args) {
   return cp.execSync(format(args));
 };
 
-function program() {
+function program(args) {
   switch (process.platform) {
     case 'darwin':
-      return 'pbcopy';
+      return escape(args) + ' | pbcopy';
     case 'win32':
-      return 'clip';
+      return ' | set /p=' + escape(args) + ' | clip';
     case 'linux':
-      return 'xclip -selection clipboard';
+      return escape(args) + ' | xclip -selection clipboard';
   }
 }
 
 function format() {
   var args = [].concat.apply([], arguments);
-  return 'echo ' + escape(args) + ' | ' + program();
+  return 'echo ' + program(args);
 }
 
 /**

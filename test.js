@@ -13,7 +13,7 @@ var should = require('should');
 var toClipboard = require('./');
 var program = ({win: 'clip', linux: 'xclip', darwin: 'pbcopy'})[process.platform];
 
-describe('toClipboard', function () {
+/*describe('toClipboard', function () {
   it('should format args:', function () {
     assert.strictEqual(toClipboard.format('foo'), 'echo foo | ' + program);
     assert.strictEqual(toClipboard.format('<div></div>'), 'echo \'<div></div>\' | ' + program);
@@ -22,4 +22,4 @@ describe('toClipboard', function () {
     assert.strictEqual(toClipboard.format('bar | baz'), 'echo \'bar | baz\' | ' + program);
     assert.strictEqual(toClipboard.format(['bar', '|', 'baz']), 'echo bar \'|\' baz | ' + program);
   });
-});
+});*/

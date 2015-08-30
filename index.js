@@ -11,11 +11,23 @@ var cp = require('child_process');
 var escape = require('shell-escape');
 
 function toClipboard(args, cb) {
-  cp.exec(format(args), cb);
+  var proc = cp.spawn(program(), {
+    stdio: ["pipe", "ignore", "ignore"]
+  });
+  if (cb) {
+    proc.on("error", cb);
+    proc.on("exit", function() {
+      cb(null);
+    });
+  }
+  proc.stdin.write(args);
+  proc.stdin.end();
 }
 
 toClipboard.sync = function toClipboardSync(args) {
-  return cp.execSync(format(args));
+  return cp.execSync(program(), {
+    input: args
+  });
 };
 
 function program() {
@@ -29,19 +41,8 @@ function program() {
   }
 }
 
-function format() {
-  var args = [].concat.apply([], arguments);
-  return 'echo ' + escape(args) + ' | ' + program();
-}
-
 /**
  * Expose `toClipboard`
  */
 
 module.exports = toClipboard;
-
-/**
- * Expose `toClipboard.format`
- */
-
-module.exports.format = format;

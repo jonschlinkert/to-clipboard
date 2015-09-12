@@ -8,7 +8,6 @@
 'use strict';
 
 var cp = require('child_process');
-var escape = require('shell-escape');
 
 function toClipboard(args, cb) {
   var proc = cp.spawn(program(), {

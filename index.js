@@ -22,7 +22,7 @@ var program = {
 		name: 'xclip',
 		args: ['-selection', 'clipboard']
 	}
-};
+}[process.platform];
 
 function toClipboard(args, cb) {
   var proc = cp.spawn(program.name, program.args, {

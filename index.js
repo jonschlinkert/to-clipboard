@@ -37,6 +37,8 @@ function program() {
       return 'clip';
     case 'linux':
       return 'xclip -selection clipboard';
+    case 'android':
+      return 'termux-clipboard-set'
   }
 }
 

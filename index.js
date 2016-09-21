@@ -11,11 +11,11 @@ var cp = require('child_process');
 
 function toClipboard(args, cb) {
   var proc = cp.spawn(program(), {
-    stdio: ["pipe", "ignore", "ignore"]
+    stdio: ['pipe', 'ignore', 'ignore']
   });
   if (cb) {
-    proc.on("error", cb);
-    proc.on("exit", function() {
+    proc.on('error', cb);
+    proc.on('exit', function() {
       cb(null);
     });
   }
@@ -24,21 +24,21 @@ function toClipboard(args, cb) {
 }
 
 toClipboard.sync = function toClipboardSync(args) {
-  return cp.execSync(program(), {
-    input: args
-  });
+  return cp.execSync(program(), {input: args});
 };
 
 function program() {
   switch (process.platform) {
-    case 'darwin':
-      return 'pbcopy';
     case 'win32':
       return 'clip';
     case 'linux':
       return 'xclip -selection clipboard';
     case 'android':
       return 'termux-clipboard-set'
+    case 'darwin':
+    default: {
+      return 'pbcopy';
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "to-clipboard",
   "description": "Copy to the clipboard. Cross-platform: windows, linux and darwin (mac).",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/jonschlinkert/to-clipboard",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/to-clipboard",

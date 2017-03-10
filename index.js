@@ -9,8 +9,23 @@
 
 var cp = require('child_process');
 
+var program = {
+  darwin: {
+    name: 'pbcopy',
+    args: []
+  },
+  win32: {
+    name: 'clip',
+    args: [],
+  },
+  linux: {
+    name: 'xsel',
+    args: ['-bi']
+  }
+}[process.platform];
+
 function toClipboard(args, cb) {
-  var proc = cp.spawn(program(), {
+  var proc = cp.spawn(program.name, program.args, {
     stdio: ['pipe', 'ignore', 'ignore']
   });
   if (cb) {
@@ -24,23 +39,10 @@ function toClipboard(args, cb) {
 }
 
 toClipboard.sync = function toClipboardSync(args) {
-  return cp.execSync(program(), {input: args});
+  return cp.execSync(program.name + ' ' + program.args.join(' '), {
+    input: args
+  });
 };
-
-function program() {
-  switch (process.platform) {
-    case 'win32':
-      return 'clip';
-    case 'linux':
-      return 'xsel -bi';
-    case 'android':
-      return 'termux-clipboard-set'
-    case 'darwin':
-    default: {
-      return 'pbcopy';
-    }
-  }
-}
 
 /**
  * Expose `toClipboard`

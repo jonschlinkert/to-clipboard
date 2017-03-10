@@ -39,9 +39,7 @@ function toClipboard(args, cb) {
 }
 
 toClipboard.sync = function toClipboardSync(args) {
-  cp.execSync(program.name + ' ' + program.args.join(' '), {
-    input: args
-  });
+  cp.spawnSync(program.name, program.args, {input: args});
 };
 
 /**

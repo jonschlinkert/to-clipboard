@@ -32,7 +32,7 @@ function program() {
     case 'win32':
       return 'clip';
     case 'linux':
-      return 'xclip -selection clipboard';
+      return 'xsel -bi';
     case 'android':
       return 'termux-clipboard-set'
     case 'darwin':

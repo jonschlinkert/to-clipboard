@@ -16,11 +16,15 @@ var program = {
   },
   win32: {
     name: 'clip',
-    args: [],
+    args: []
   },
   linux: {
     name: 'xsel',
     args: ['-bi']
+  },
+  android: {
+    name: 'termux-clipboard-set',
+    args: []
   }
 }[process.platform];
 
